@@ -1,0 +1,26 @@
+name: Simple Bundle Check
+description: Warn when JS bundle / asset size exceeds a budget on PR.
+author: Dmytro Paduchak
+branding:
+  icon: archive
+  color: orange
+inputs:
+  github-token:
+    description: Token to post sticky PR comments.
+    required: false
+    default: ${{ github.token }}
+  fail-on:
+    description: "none = report only; medium or high = fail when findings match."
+    required: false
+    default: none
+  budget-kb:
+    description: Max total size in KiB for matched build assets.
+    required: false
+    default: "512"
+  asset-glob:
+    description: Comma-separated suffixes to measure under dist/ or build/ (e.g. .js,.css).
+    required: false
+    default: ".js,.css"
+runs:
+  using: node20
+  main: dist/index.js
